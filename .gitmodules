@@ -1,0 +1,12 @@
+[submodule "clio"]
+	path = clio
+	url = git@github.com:Joker-Principal/clio.git
+    branch = main
+[submodule "astrbot"]
+	path = astrbot_plugin_herodotus
+	url = git@github.com:Joker-Principal/astrbot_plugin_herodotus.git
+    branch = main
+[submodule "dsh"]
+	path = dsh-herodotus
+	url = git@github.com:Joker-Principal/dsh-herodotus.git
+    branch = main

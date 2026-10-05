@@ -1,0 +1,49 @@
+# 归属声明 / NOTICE
+
+Herodotus 的实现包含移植、借鉴与参考的第三方成果。以下版权与许可声明**必须随本仓库保留**。
+
+## 一、移植与借鉴
+
+### dsh-layered-memory
+
+- 来源：https://github.com/JunNanLYS/dsh-layered-memory
+- 许可：**MIT**
+- 版权：Copyright (c) JunNanLYS
+- 本项目用途：**L0–L3 分层蒸馏管线与蒸馏 Prompt 的设计来源**。其双写架构（只增账本 + 可重建索引）、`jieba 词 ∪ CJK 二元组` 分词并集、混合召回（关键词 + 向量 + RRF k=60）、时效衰减、消息侧注入策略、成本记账等设计被本项目参考并**以 C++ 重新实现**。
+- 上游链条：该插件移植自腾讯 **TencentDB-Agent-Memory** 的 MemoryCore（https://github.com/TencentCloud/TencentDB-Agent-Memory），相关设计一并致谢。
+
+### whale-persona
+
+- 来源：https://github.com/shenA2024/whale-persona
+- 许可：**MIT**
+- 本项目用途：**人格治理模式的设计来源**——proposed→confirm 追加式收件箱（AI 只提议、人只批准）、注入为数据而非指令、tier 分层、预设卡与酒馆角色卡导入导出。
+
+## 二、方法论与工程做法的参考
+
+- **本地 RAG 服务的工程做法**（`expected_version` 乐观锁 → 409、RRF 融合、LLM 重排失败自动降级、FNV-1a 稳定哈希、持久化倒排索引），参考 https://github.com/erishen/rag-task-service 及其设计说明 https://erishen.cn/rag_task_service/
+- **AstrBot 客户端接缝**（`@filter.on_llm_request` + `request.extra_user_content_parts` + `.mark_as_temp()`、`@filter.event_message_type` + MCP 客户端能力），依据 AstrBot 官方文档：
+  - https://docs.astrbot.app/dev/star/guides/ai.html
+  - https://docs.astrbot.app/dev/star/guides/listen-message-event.html
+  - https://docs.astrbot.app/use/mcp.html
+
+## 三、第三方库许可（实现阶段逐项补齐）
+
+| 库 | 许可 | 用途 |
+| --- | --- | --- |
+| Xapian | **GPL-2+** | 全文检索（**若采用**；与 GPL-3 兼容，须保留其声明） |
+| USearch | Apache-2.0 | 向量 ANN（HNSW） |
+| cppjieba | MIT | 中文分词 |
+| SQLite | Public Domain | 账本与索引 |
+| cpp-httplib | MIT | HTTP 服务 |
+| nlohmann/json | MIT | JSON |
+| llama.cpp | MIT | 本地推理（以独立 `llama-server` 进程运行，不静态链接） |
+
+> 上述清单在实现阶段每引入一个依赖即须补一行，并核对许可与 GPL-3.0 的兼容性。
+
+## 四、模型
+
+**本仓库不捆绑任何模型。**
+
+嵌入 / 重排 / 蒸馏模型一律是**用户本机的可配置槽位**，默认值只是「本机当前选择」，不是发布物的一部分。
+
+其中 **jina-reranker 为 CC BY-NC 许可**，仅可用于非商业自用场景，因此**绝不进入发布物**；配置项中它只是可选建议之一。
