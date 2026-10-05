@@ -4,13 +4,15 @@
 >
 > 命名取自希罗多德（「历史之父」）：其《历史》开篇即「使已发生之事不致因时间而湮没，使希腊人与异邦人的伟大功业不致失其荣光」。服务名 **Clio** 取自他首先召唤的缪斯、卷一之名。
 
+> **决策状态以 [`docs/PLAN.md`](docs/PLAN.md) 为准**：标 **【定】** 者已确认；**未标注的默认【待考证】**，不可当作约束。
+
 ## 这份仓库是什么
 
 Herodotus 是一个 **umbrella 仓库**：本身只承载**文档与集成**，实现分布在三个独立组件仓库中（以 git submodule 组织）。
 
 | 组件 | 语言 | 职责 |
 | --- | --- | --- |
-| [`clio`](clio/) | C++20 | 引擎库 `herodotus` + 守护进程 `clio`：账本、索引、记忆库、知识库、蒸馏、召回、人格、治理、HTTP/MCP 服务 |
+| [`clio`](clio/) | C++23 | 引擎库 `herodotus`（库名【待考证】） + 守护进程 `clio`：账本、索引、记忆库、知识库、蒸馏、召回、人格、治理、HTTP/MCP 服务 |
 | [`dsh-herodotus`](dsh-herodotus/) | TypeScript (Cordis) | DSH 客户端插件：捕获会话事件、消息侧注入召回、注册记忆工具 |
 | [`astrbot_plugin_herodotus`](astrbot_plugin_herodotus/) | Python (Star) | AstrBot 客户端插件：捕获消息事件、`on_llm_request` 注入召回、注册记忆工具 |
 
@@ -23,7 +25,7 @@ Herodotus 是一个 **umbrella 仓库**：本身只承载**文档与集成**，�
 | [`docs/PLAN.md`](docs/PLAN.md) | **开发计划**：目标、成功标准、架构、技术选型、schema、里程碑与验收门、开放决策 |
 | [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md) | 进程边界、数据流、**七条不变量**、失败模式与对策 |
 | [`docs/PROTOCOL.md`](docs/PROTOCOL.md) | HTTP 端点与 MCP 工具契约 |
-| [`reference/README.md`](reference/README.md) | 参考实现清单与关键文件索引 |
+| `.reference/` | 参考实现清单与关键文件索引（**计划中，尚未建立**） |
 
 ## 当前状态
 
@@ -74,7 +76,7 @@ git clone --recurse-submodules git@github.com:Joker-Principal/herodotus.git
 git submodule update --init --recursive
 ```
 
-## 两条硬约束
+## 两条硬约束【定】
 
 1. **中文检索不可妥协**——关键词腿用 `cppjieba 词 ∪ CJK 二元组` 的有序去重并集，其中**二元组是不可移除的召回底线**。
 2. **动态召回绝不进系统提示词**——记忆走消息侧（DSH：消息侧 prepend；AstrBot：`extra_user_content_parts`），只有人格与画像等**稳定内容**才进系统提示词稳定区。破坏 prefix cache 的成本是 **7–20 倍**。

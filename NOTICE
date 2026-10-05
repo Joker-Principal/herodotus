@@ -31,11 +31,12 @@ Herodotus 的实现包含移植、借鉴与参考的第三方成果。以下版�
 | 库 | 许可 | 用途 |
 | --- | --- | --- |
 | Xapian | **GPL-2+** | 全文检索（**若采用**；与 GPL-3 兼容，须保留其声明） |
-| USearch | Apache-2.0 | 向量 ANN（HNSW） |
+| USearch | Apache-2.0 | 向量 ANN（HNSW）— **已被 LanceDB 取代，待确认是否移除** |
+| LanceDB | 待核对 | 向量库（含 ANN） |
 | cppjieba | MIT | 中文分词 |
 | SQLite | Public Domain | 账本与索引 |
 | cpp-httplib | MIT | HTTP 服务 |
-| nlohmann/json | MIT | JSON |
+| simd-json / simdjson | 待核对 | JSON（**具体库名待确认**） |
 | llama.cpp | MIT | 本地推理（以独立 `llama-server` 进程运行，不静态链接） |
 
 > 上述清单在实现阶段每引入一个依赖即须补一行，并核对许可与 GPL-3.0 的兼容性。
