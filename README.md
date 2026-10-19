@@ -29,25 +29,14 @@ Herodotus 是一个 **umbrella 仓库**：本身只承载**文档与集成**，�
 
 ## 当前状态
 
-**立项阶段：只有文档与目录骨架，尚无任何代码。**
+**P0 阶段**：`clio` 骨架已落地并可构建运行（协议版本常量 / SQLite+FTS5 账本自检 / pylai HTTP 服务 + `/health` / 守护进程入口），`scripts/` 提供构建·起停·冒烟；蒸馏与中文分词 spike、黄金语料集待推进。
 
 | 仓库 | 远程 | 状态 |
 | --- | --- | --- |
 | `herodotus` | `github.com:Joker-Principal/herodotus.git` | 本仓库（umbrella） |
-| `clio` | `github.com:Joker-Principal/clio.git` | 目录骨架 |
+| `clio` | `github.com:Joker-Principal/clio.git` | P0 骨架（可构建） |
 | `dsh-herodotus` | `github.com:Joker-Principal/dsh-herodotus.git` | 目录骨架 |
 | `astrbot_plugin_herodotus` | `github.com:Joker-Principal/astrbot_plugin_herodotus.git` | 目录骨架 |
-
-> ⚠️ **submodule 登记待完成**
->
-> 三个组件目录当前是**独立 clone**（各自带 `.git` 目录），主仓库尚无 `.gitmodules`。首次提交前需要在主仓库把它们登记为 submodule，例如：
->
-> ```bash
-> git submodule add git@github.com:Joker-Principal/clio.git clio
-> ```
->
-> 若提示路径已存在，需先把已有目录移开再登记，或使用 `--force`（用后请核对 `.gitmodules` 内容）。
-> **登记前请确认三个组件仓库各自的提交已推送到远端**，否则 submodule 会指向远端不存在的 commit，他人克隆时失败。
 
 ## submodule 工作流
 

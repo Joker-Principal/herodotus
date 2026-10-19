@@ -104,13 +104,11 @@ consolidate ─定时/手动→ 去重合并 → 更新 L3 画像快照（稳定
 | 账本 / 索引存储 | SQLite | 【定】 |
 | 依赖导入 | CMake `FetchContent` + `find_package` 重定向模式 | 【定】 |
 | 向量库（含 ANN） | `LanceDB` 的 C-binding | 【定】 |
-| HTTP | `cpp-httplib` | 【定】 |
-| JSON | `simd-json` | 【定】 |
+| HTTP | `pylai`（自建 asio HTTP 底座，joker-registry 供货） | 【定】 |
+| JSON | `simdjson` | 【定】 |
 | 全文检索引擎 | FTS5 先上 / Xapian 备选（见 D1） | 【待考证】 |
 | 嵌入模型 | 由 `llama-server` 提供；具体模型为配置槽位（见 D8） | 【待考证】 |
 | 混编以借用 Rust 库 | — | 【待考证】 |
-
-> `clio/README.md` 中的 **C++20**、**CMake + vcpkg manifest**、**nlohmann/json** 与本表冲突，以本表为准（该 README 属生成骨架）。
 
 ---
 
@@ -303,7 +301,7 @@ POST /kb/ingest    POST /kb/search
 | 决策 | 结论 |
 | --- | --- |
 | 引擎语言 | **C++23** |
-| 技术选型 | SQLite / CMake `FetchContent + find_package` / `LanceDB`（向量）/ `cpp-httplib` / `simd-json` |
+| 技术选型 | SQLite / CMake `FetchContent + find_package` / `LanceDB`（向量）/ `pylai`（HTTP）/ `simdjson` |
 | 账本模型 | **事件溯源（只增不改）**；**索引 = 账本 + 配置的纯函数**，可整体丢弃重建；账本用 **SQLite**；**JSONL 仅作可读备份 / 人工修复** |
 | 并发 | 写操作带 `expectedVersion`，冲突返回 **409** |
 | 人格与知识边界 | 记忆**按人格物理隔离**（目录 `personas/<personaId>/`）；知识库**全局共享** |

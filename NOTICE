@@ -35,8 +35,12 @@ Herodotus 的实现包含移植、借鉴与参考的第三方成果。以下版�
 | LanceDB | 待核对 | 向量库（含 ANN） |
 | cppjieba | MIT | 中文分词 |
 | SQLite | Public Domain | 账本与索引 |
-| cpp-httplib | MIT | HTTP 服务 |
-| simd-json / simdjson | 待核对 | JSON（**具体库名待确认**） |
+| simdjson | Apache-2.0 | JSON |
+| asio | BSL-1.0 | 网络（HTTP 底座，随 pylai 引入） |
+| llhttp | MIT | HTTP 解析（随 pylai 引入） |
+| fmt | MIT | 格式化（随 pylai 引入） |
+| spdlog | MIT | 日志（随 pylai 引入） |
+| Boost（pylai 依赖） | BSL-1.0 | HTTP 底座（随 pylai 引入） |
 | llama.cpp | MIT | 本地推理（以独立 `llama-server` 进程运行，不静态链接） |
 
 > 上述清单在实现阶段每引入一个依赖即须补一行，并核对许可与 GPL-3.0 的兼容性。
