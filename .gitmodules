@@ -10,3 +10,7 @@
 	path = dsh-herodotus
 	url = git@github.com:Joker-Principal/dsh-herodotus.git
     branch = main
+[submodule "pylai"]
+	path = pylai
+	url = git@github.com:Joker-Principal/pylai.git
+	branch = master
