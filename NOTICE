@@ -35,6 +35,7 @@ Herodotus 的实现包含移植、借鉴与参考的第三方成果。以下版�
 | LanceDB | 待核对 | 向量库（含 ANN） |
 | cppjieba | MIT | 中文分词 |
 | SQLite | Public Domain | 账本与索引 |
+| argparse | MIT | 命令行解析（header-only） |
 | simdjson | Apache-2.0 | JSON |
 | asio | BSL-1.0 | 网络（HTTP 底座，随 pylai 引入） |
 | llhttp | MIT | HTTP 解析（随 pylai 引入） |
@@ -45,7 +46,17 @@ Herodotus 的实现包含移植、借鉴与参考的第三方成果。以下版�
 
 > 上述清单在实现阶段每引入一个依赖即须补一行，并核对许可与 GPL-3.0 的兼容性。
 
-## 四、模型
+## 四、语料与数据集
+
+| 数据集 | 来源 | 作者 / 机构 | 许可 | 用途 |
+| --- | --- | --- | --- | --- |
+| UD Chinese-GSD | https://github.com/UniversalDependencies/UD_Chinese-GSD | Google（标注与转换）；Universal Dependencies 社区维护 | CC BY-SA 4.0 | 中文分词质量评测（P/R/F1，繁体） |
+| UD Chinese-GSDSimp | https://github.com/UniversalDependencies/UD_Chinese-GSDSimp | Google（GSD 经 OpenCC 转换并人工修正）；Universal Dependencies 社区维护 | CC BY-SA 4.0 | 中文分词质量评测（P/R/F1，简体） |
+| UD Chinese-PatentChar | https://github.com/UniversalDependencies/UD_Chinese-PatentChar | Yixuan Li、Kim Gerdes、Bruno Guillaume（文本取自 CNIPA 专利权利要求） | README 元数据标 CC BY-NC-SA 3.0，LICENSE.txt 标 CC BY-SA 4.0（上游自相矛盾，如实记录） | 中文分词质量评测（P/R/F1，简体专利） |
+
+> 数据集**不入仓库**，实体 clone 位于 `.reference/datasets/`（已被 `.gitignore` 忽略）。
+
+## 五、模型
 
 **本仓库不捆绑任何模型。**
 

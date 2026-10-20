@@ -114,6 +114,16 @@ def kill_tree(pid: int) -> None:
             pass
 
 
+def wait_gone(pid: int, seconds: float = 3.0) -> bool:
+    """等进程退出；超时返回 False。"""
+    deadline = time.monotonic() + seconds
+    while time.monotonic() < deadline:
+        if not process_alive(pid):
+            return True
+        time.sleep(0.1)
+    return False
+
+
 def launch(exe: Path, port: int, data_dir: Path, background: bool):
     """起 clio。background=True 用后台旗标（无窗口、新进程组），否则继承控制台（smoke 用，便于 CTRL_C）。"""
     flags = 0
@@ -185,6 +195,9 @@ def cmd_stop(args: argparse.Namespace) -> int:
     if process_alive(pid):
         print(f"[stop] 停止 clio pid={pid}")
         kill_tree(pid)
+        if not wait_gone(pid):
+            print(f"[stop] pid={pid} 未能退出，请手动处理", file=sys.stderr)
+            return 1
     pid_file(data_dir).unlink(missing_ok=True)
     print("[stop] 已停止")
     return 0
