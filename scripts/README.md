@@ -39,6 +39,15 @@ python scripts/distill_spike.py --model Qwen3-14B-abliterated.Q5_K_M --json
 - 指标：覆盖（期望事实是否提取）/ 噪声（不该提取的项）/ 碎片化（强关联是否被拆）/ JSON 合法性
 - 依赖本机 llama-server（OpenAI 兼容接口），请求里关闭 `enable_thinking`
 
+## 黄金语料集
+
+```powershell
+python scripts/build_golden.py
+```
+
+从 `.reference/dsh-layered-memory/bench/scenarios/` 生成 `clio/tests/data/golden/`（语料 + 查询 + 金标），
+用于 P3 检索基准。口径与重新生成方式见 `clio/tests/data/golden/README.md`。
+
 ## 约定
 
 - **构建一律走 llvm preset（clang-cl）**：MSVC 编不过「C++20 模块 + asio」（C2039 / C2504 /

@@ -75,6 +75,7 @@
 
 | 数据集 | 位置 | 用途 |
 | --- | --- | --- |
+| 黄金语料集 | `clio/tests/data/golden/`（`corpus.jsonl` + `queries.jsonl`，入库） | P3 检索基准：20 场景 / 65 条语料 / 140 条查询；由 `scripts/build_golden.py` 从 dsh-layered-memory 的 bench 场景生成 |
 | UD Chinese-GSD | `.reference/datasets/UD_Chinese-GSD/` | 分词评测（繁体，4 997 句） |
 | UD Chinese-GSDSimp | `.reference/datasets/UD_Chinese-GSDSimp/` | 分词评测（简体，4 997 句） |
 | UD Chinese-PatentChar | `.reference/datasets/UD_Chinese-PatentChar/` | 分词评测（简体专利，200 句） |
