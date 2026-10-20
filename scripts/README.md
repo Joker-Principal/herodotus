@@ -27,6 +27,18 @@ python scripts/clioctl.py smoke                # 全自动起停自检
 
 退出码：全过为 0，否则为 1。
 
+## 蒸馏 L1 spike
+
+```powershell
+python scripts/distill_spike.py --model RVN-Q3_K_M-multilingual
+python scripts/distill_spike.py --model Qwen3-14B-abliterated.Q5_K_M --json
+```
+
+- 用例：`clio/tests/data/distill_l1_cases.json`，每个用例带 `mode: chat|work|auto`
+- prompt：`scripts/prompts/l1_extraction_<mode>.txt`（移植自 `dsh-layered-memory`，见 NOTICE）
+- 指标：覆盖（期望事实是否提取）/ 噪声（不该提取的项）/ 碎片化（强关联是否被拆）/ JSON 合法性
+- 依赖本机 llama-server（OpenAI 兼容接口），请求里关闭 `enable_thinking`
+
 ## 约定
 
 - **构建一律走 llvm preset（clang-cl）**：MSVC 编不过「C++20 模块 + asio」（C2039 / C2504 /
