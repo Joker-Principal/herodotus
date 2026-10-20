@@ -25,7 +25,7 @@ Herodotus 是一个 **umbrella 仓库**：本身只承载**文档与集成**，�
 | [`docs/PLAN.md`](docs/PLAN.md) | **开发计划**：目标、成功标准、架构、技术选型、schema、里程碑与验收门、开放决策 |
 | [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md) | 进程边界、数据流、**七条不变量**、失败模式与对策 |
 | [`docs/PROTOCOL.md`](docs/PROTOCOL.md) | HTTP 端点与 MCP 工具契约 |
-| `.reference/` | 参考实现清单与关键文件索引（**计划中，尚未建立**） |
+| [`docs/REFERENCE.md`](docs/REFERENCE.md) | 参考实现与数据集清单：去哪找什么、移植优先级；实体在 `.reference/`（不入库） |
 
 ## 当前状态
 

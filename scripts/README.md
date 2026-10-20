@@ -46,7 +46,3 @@ python scripts/distill_spike.py --model Qwen3-14B-abliterated.Q5_K_M --json
 - **运行产物都在 `<repo>/.run/`**（已被 `.gitignore` 的 `/.*/` 覆盖）：
   - `start` 默认数据目录 `.run/data`、pid 文件 `.run/data.pid`、日志 `.run/data.log`；
   - 换数据目录用 `--data-dir`（start 与 stop 须用同一个值）。
-- **Windows 上停止一律强杀**（`taskkill /T /F`）：P0 尚无持久状态，WAL 可自恢复。
-  实测 CTRL_C 控制台事件在 VS Code 集成终端（ConPTY）下**发不达进程**（pylai 日志无 signal 记录），
-  优雅停机等 P4 的管理端点落地后再接；POSIX 走 SIGINT（exit 0）。
-- 端口冲突：`start` / `status` 用 `--port` 换端口；`smoke` 自己找空闲端口。
