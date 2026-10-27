@@ -30,9 +30,11 @@ python scripts/clioctl.py smoke                # 全自动起停自检
 ## 蒸馏 L1 spike
 
 ```powershell
-python scripts/distill_spike.py --model RVN-Q3_K_M-multilingual
-python scripts/distill_spike.py --model Qwen3-14B-abliterated.Q5_K_M --json
+python scripts/distill_spike.py --model qwen3.8-27b-rvn
+python scripts/distill_spike.py --model qwen3-14b --json
 ```
+
+`--model` 用 llama-server 暴露的 id（即 `llama-router.ini` 的 section 名），不是 GGUF 文件名。
 
 - 用例：`clio/tests/data/distill_l1_cases.json`，每个用例带 `mode: chat|work|auto`
 - prompt：`scripts/prompts/l1_extraction_<mode>.txt`（移植自 `dsh-layered-memory`，见 NOTICE）

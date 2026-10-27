@@ -8,8 +8,8 @@
 - JSON 合法性：模型输出能否被解析为情境数组
 
 用法：
-    python scripts/distill_spike.py --model Qwen3-14B-abliterated.Q5_K_M
-    python scripts/distill_spike.py --model RVN-Q3_K_M-multilingual --json
+    python scripts/distill_spike.py --model qwen3-14b
+    python scripts/distill_spike.py --model qwen3.8-27b-rvn --json
 """
 from __future__ import annotations
 
