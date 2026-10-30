@@ -95,7 +95,19 @@
 
 ---
 
-## 4. 待评估的来源
+## 4. 依赖与上游的已知行为
+
+只记**客观行为**（不是本机路径），且只记会坑到我们的那种。
+
+| 项 | 行为 | 我们要做的 |
+| --- | --- | --- |
+| **asio 的自动链接** | 用 `#pragma comment(lib, ...)` 自动链接 Win32 库，但整段被 `defined(_MSC_VER) \|\| defined(__BORLANDC__)` 包住 → **MinGW 什么也拿不到**。涉及 `detail/socket_types.hpp`（`ws2_32`、`mswsock`）与 `impl/connect_pipe.ipp`（`BCryptGenRandom` → `bcrypt`） | 在私有 registry 的 asio port 里 `if(MINGW)` 显式链接，而不是每个下游项目各补一次 |
+| **vcpkg 的 ABI 哈希** | `portfile.cmake` 里 `file(COPY ...)` 过去的 `CMakeLists.txt` **不在** ABI 哈希内 | 改它必须 **bump `port-version`**，否则下游不重建，链接行为还是旧的 |
+| **llvm#191462（clang-cl）** | MS-ABI 下为异常对象查找拷贝构造函数时，这条路径会在模板构造上自我复制；嵌套每深一层多一层实例化 → 栈溢出。**Itanium ABI 不复现**（clang+libc++ 与 g++ 对照验证过） | `clio` 的 `execOrThrow` 目前只包一层异常；**不要加深嵌套**，除非上游修复 |
+
+---
+
+## 5. 待评估的来源
 
 | 来源 | 可能参考的点 | 何时看 |
 | --- | --- | --- |
@@ -103,7 +115,7 @@
 
 ---
 
-## 5. 记录纪律
+## 6. 记录纪律
 
 - 一条参考只在**真正读进代码或文档**时登记；没读过的不写，避免制造「欠账清单」的错觉。
 - 每个来源必须写许可，并同步到 `NOTICE`。

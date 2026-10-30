@@ -11,6 +11,32 @@
 
 ---
 
+## 2026-10-30 · 补入口与术语，把散在会话里的口径收进文档
+
+**范围**：根 `README.md`、新增 `AGENTS.md`、`docs/{ARCHITECTURE,REFERENCES,PROTOCOL,PLAN}.md`。只动文档。
+
+### 补入口
+
+- 根 `README` 增「目录地图」与「怎么跑」：只指向各组件 README，**不写编译器与预设名**（属本机配置）。
+- 新增 `AGENTS.md`，**只收本仓特有的五条**（本仓边界、索引只在根 README、目录 README 按需创建、变更记载分两层、环境不入库）；全局协作与提交纪律不重复。
+- 术语：`ARCHITECTURE` 增 `§0`（L0–L3、账本 / 索引、族、人格、知识库、蒸馏、召回、注入、稳定区、戳位、治理收件箱），定义只此一处；`REFERENCES` 的 L0–L3 改为指向该节。
+
+### 把口径收回文档
+
+- **错误与事务约定**落进 clio 仓的 [`../clio/docs/coding-discipline.md`](../clio/docs/coding-discipline.md)：`std::expected<T, std::error_code>` + 各模块自带分类器、只跨不可控边界抛 `Exception`、事务用 `JK::Meta::Cleanup`。这是 clio 的内部实现约定，不进 umbrella 的架构文档；`ARCHITECTURE §8` 只留一张「各组件的约定在哪」的索引。
+- **依赖的客观行为**进入 `REFERENCES §4`：asio 的自动链接被 `_MSC_VER` 包住（MinGW 拿不到 `ws2_32` / `mswsock` / `bcrypt`）、vcpkg 的 port `CMakeLists.txt` 不参与 ABI 哈希（改它必须 bump `port-version`）、llvm#191462 只在 MS-ABI 复现。
+- **决策**：`PLAN` §8.1 补「依赖导出方式」——不用 `find_dependency`，也不用 CPS（尚不支持 compiler flags），走 `EXPORT_PACKAGE_DEPENDENCIES`。
+- **漂移收敛**：`PROTOCOL` 的 `POST /rebuild` 标出 🔍（是否暴露仍未定，见 D0-e）；`ARCHITECTURE §7` 删掉与 `REFERENCES` 重复的差异叙述，只留指针。
+
+### 怎么复核
+
+```powershell
+Select-String -Path docs\*.md,README.md,AGENTS.md -Pattern '【定】|【待考证】'   # 应为空
+Select-String -Path docs\ARCHITECTURE.md -Pattern '^## '                    # §0–§8 连续
+```
+
+---
+
 ## 2026-10-27 · 文档重组：每篇只回答一个问题
 
 **范围**：`docs/` 全部、根 `README.md`、两个客户端 README。只动文档，不动实现。

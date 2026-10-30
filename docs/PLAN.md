@@ -80,7 +80,7 @@
 herodotus/                        ← umbrella（文档 + 集成 + 组织）
 ├─ README.md  LICENSE  NOTICE  .gitignore
 ├─ docs\  PLAN.md  ARCHITECTURE.md  PROTOCOL.md  REFERENCES.md  changelog.md
-├─ .reference\                   参考实现清单（实体 clone 不入库）
+├─ .reference\                   参考实现的实体 clone（不入库；登记见 docs/REFERENCES.md）
 ├─ scripts\                      构建 / 起停 / 冒烟脚本（P0 落地）
 ├─ clio\                         → submodule：C++ 引擎 + 守护进程
 ├─ dsh-herodotus\                → submodule：DSH 插件（TS/Cordis）
@@ -183,6 +183,7 @@ consolidate ─定时/手动→ 去重合并 → 更新 L3 画像快照（稳定
 | --- | --- |
 | 引擎语言 | **C++23** |
 | 技术选型 | SQLite / **vcpkg manifest + `joker-registry`**（`FetchContent` 仅用于 cppjieba、argparse）/ `LanceDB`（向量）/ `pylai`（HTTP）/ `simdjson` / **SQLite FTS5** |
+| 依赖导出方式 | 不用 `find_dependency`，也不用 CPS（目前不支持 compiler flags）→ 走 `EXPORT_PACKAGE_DEPENDENCIES` 实验开关 |
 | 账本与索引的 artifact | **两文件**：`ledger.db` + `index.db` |
 | 「只增」的保证 | **写入纪律** + `Store::verify()` 校验，不加 DB 层约束 |
 | 更新语义 | 同 id **追加版本**（`version+1`），旧版本只从索引删除 |

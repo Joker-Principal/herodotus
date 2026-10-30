@@ -268,6 +268,8 @@
 
 **语义要点**：重建**只读账本**，不触碰账本内容。这是「索引可丢弃」原则的落地接口。
 
+> **状态 🔍**：这个端点到底露不露还没定（`PLAN` 的 D0-e）——也可能只保留 CLI 的 `rebuild` 子命令、不开放 HTTP。上线前先定这条。
+
 ### 2.11 治理：`GET /governance` · `POST /governance/{id}/{confirm|reject}`
 
 ```json

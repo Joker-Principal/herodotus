@@ -345,8 +345,18 @@ kb_ledger(seq PK AUTOINCREMENT, chunk_id TEXT, op TEXT, payload_json TEXT, at IN
 
 ## 7. 与参考实现的关系
 
-本项目的**管线设计与 Prompt 来自** `dsh-layered-memory`（MIT），**治理模式来自** `whale-persona`（MIT），二者均在 [`../NOTICE`](../NOTICE) 中声明。
+来源、许可、借鉴点与刻意差异见 [`REFERENCES.md`](REFERENCES.md)；许可声明见 [`../NOTICE`](../NOTICE)。
 
-差异在于：参考实现是**单一宿主内的 TS 插件**（记忆逻辑跑在 DSH 进程内、用 `node:sqlite`、仅两族 `chat`/`work`）；本项目是**多客户端共享的独立服务**（C++、HTTP + MCP、任意数量人格、另有全局知识库）。
+`.reference/` 下的源码只作**语义参考**：行为逐条对账，代码以 C++ 重写。
 
-因此 `.reference/` 下的源码在本项目中**只作为语义规格**使用——算法行为逐条对账，代码以 C++ 重新实现（`.reference/` 目录计划中，尚未建立）。
+---
+
+## 8. 各自仓内的约定
+
+模块内的编码约定**不在本文**——它们是各组件仓的内部事：
+
+| 组件 | 约定在哪 |
+| --- | --- |
+| `clio` | [`../clio/docs/coding-discipline.md`](../clio/docs/coding-discipline.md)：错误用 `std::expected` + 各模块自带分类器、异常只跨越不可控边界、事务用 `JK::Meta::Cleanup` |
+| `pylai` | 其仓内 `docs/coding-discipline.md` |
+| 两个客户端 | 各自 `README.md` 的「框架自己的约束」 |
