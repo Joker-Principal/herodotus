@@ -38,7 +38,7 @@ Herodotus 是一个 **umbrella 仓库**：本身只承载**文档与集成**，�
 本仓**不固化编译器与路径**：工具链与预设名属本机配置，仓库只保证“用对应组件的 preset 构建”。
 
 1. **构建引擎**：见 [`clio/README.md`](clio/README.md) 的「构建与工具链」
-2. **跑测试**：`ctest --test-dir <clio 的构建目录> -C Debug`
+2. **跑测试**：用 test preset（`ctest --preset <你的 test preset>`）。裸 `ctest --test-dir …` 缺工具链的运行时 DLL 路径，会以 `0xc0000135` 全部失败。
 3. **验收 / 冒烟 / 评测**：见 [`scripts/README.md`](scripts/README.md)
 4. **客户端**：`dsh-herodotus` / `astrbot_plugin_herodotus` 各自的 README
 

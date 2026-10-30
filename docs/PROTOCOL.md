@@ -203,8 +203,9 @@
 
 **语义要点**
 
-- 「遗忘」是**逻辑删除**：账本追加一条 `op=forget` 的新版本；索引中置 `state=forgotten`。
-- **账本历史不可抹除**——物理抹除需显式走 `POST /rebuild {what:"purge"}` 并二次确认（P7 再定）。
+- 「遗忘」是**逻辑删除**：账本追加一条 `op=forget` 的新版本（**内容必须为空**），索引中**直接删除该记录**。
+- **账本历史不抹除**：被忘记录的旧版本仍在账本里（`op=forget` 只是它的最新版本）；物理抹除另立机制（P7 再定）。
+- **可复活**：再追加一个带内容的版本即可（版本号自然衔接），不需要换新 id。
 
 ### 2.6 `POST /consolidate`
 
@@ -254,23 +255,9 @@
 `state`: `queued` \| `running` \| `done` \| `failed` \| `cancelled`。
 `DELETE` 为协作式取消（服务在下一个可中断点停止）。
 
-### 2.10 `POST /rebuild`
+> **重建不设 HTTP 端点**（已定）：走 `store_cli rebuild`，以及服务启动时按水位 / 戳位的自愈重建。重建是重活，不应该是一个随时可被调用的接口。
 
-重建派生数据。**这是自愈入口。**
-
-```json
-{ "personaId": "default", "what": "index" }
-```
-
-`what`: `index`（索引全量） \| `fts`（仅全文索引） \| `vectors`（仅向量） \| `all`。
-
-响应 `202` → `{ "jobId": "job-32" }`。
-
-**语义要点**：重建**只读账本**，不触碰账本内容。这是「索引可丢弃」原则的落地接口。
-
-> **状态 🔍**：这个端点到底露不露还没定（`PLAN` 的 D0-e）——也可能只保留 CLI 的 `rebuild` 子命令、不开放 HTTP。上线前先定这条。
-
-### 2.11 治理：`GET /governance` · `POST /governance/{id}/{confirm|reject}`
+### 2.10 治理：`GET /governance` · `POST /governance/{id}/{confirm|reject}`
 
 ```json
 { "items": [ { "id": "g-5", "recordId": "r-9a02", "state": "proposed",
@@ -283,7 +270,7 @@
 - AI 只能写 `proposed`；**只有人能写 `confirmed` / `rejected`**。
 - **未 `confirmed` 的条目不进入长期记忆**，也不参与召回。
 
-### 2.12 知识库：`POST /kb/ingest` · `POST /kb/search`
+### 2.11 知识库：`POST /kb/ingest` · `POST /kb/search`
 
 ```json
 POST /kb/ingest

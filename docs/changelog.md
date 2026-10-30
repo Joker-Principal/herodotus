@@ -11,6 +11,34 @@
 
 ---
 
+## 2026-10-30 · P1 收尾：遗忘机制与重建入口
+
+**范围**：`clio`（`ledger` / `index` / `store_cli` / `tests`）、`PROTOCOL`、`PLAN`、`ARCHITECTURE`。
+
+### 决策
+
+- **遗忘（D0-d）**：逻辑删除 = 账本追加 `op=forget` 版本（**内容必须为空**）+ 索引直接删行。旧版本仍在账本（历史不抹除，物理抹除另立机制 P7）；再追加带内容的版本即可复活。
+- **重建入口（D0-e）**：**不暴露 `POST /rebuild`**。重建走 `store_cli rebuild` 与启动期按水位 / 戳位的自愈；`PROTOCOL` 删掉该端点小节。
+
+### 改了什么
+
+- `ledger::Store::appendL1Version` 校验 `op ∈ add|merge|edit|forget`，并拒绝带内容的 `forget`（新错误码 `invalid_op` / `forget_content_not_empty`）。
+- `index::Index`：`upsertNoTxn` 遇 `op=forget` 调 `removeNoTxn` —— 因此**重建也不会让遗忘记录复活**；`remove` 改为对 `removeNoTxn` 的薄包装。
+- `store_cli` 新增 `forget --record` 子命令。
+- `index_tests` 新增四条：遗忘后不命中、重建后不复活、追加版本后复活、带内容的 forget 被拒。
+
+### 怎么复核
+
+```powershell
+ctest --preset <你的 test preset> --output-on-failure     # 应 4/4
+store_cli --data-dir D --dict-dir D append-l1 --record r-1 --content "温酒斩华雄"
+store_cli --data-dir D --dict-dir D forget --record r-1
+store_cli --data-dir D --dict-dir D rebuild
+store_cli --data-dir D --dict-dir D search "华雄"          # 两次都应 count = 0
+```
+
+---
+
 ## 2026-10-30 · 补入口与术语，把散在会话里的口径收进文档
 
 **范围**：根 `README.md`、新增 `AGENTS.md`、`docs/{ARCHITECTURE,REFERENCES,PROTOCOL,PLAN}.md`。只动文档。
