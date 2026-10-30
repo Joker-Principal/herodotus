@@ -29,7 +29,7 @@
 
 | 参考点 | 它的做法 | 我们的处理 | 落点 |
 | --- | --- | --- | --- |
-| L0–L3 分层 | 消息 / 原子事实 / 场景块 / 画像快照 | **借鉴**：分层保留，「族」用于限定去重候选范围 | `ARCHITECTURE` §3 · 表结构 `l1_ledger.family` |
+| L0–L3 分层 | 消息 / 原子事实 / 场景块 / 画像快照 | **借鉴**：分层保留（术语定义见 `ARCHITECTURE` §0），「族」用于限定去重候选范围 | `ARCHITECTURE` §3 · `l1_ledger.family` |
 | 检索唯一缝 | 全部检索走 `L1Store.search()` | **借鉴**：clio 只保留 `Index::search` 一条检索路径 | ✅ `clio/core/index` |
 | L1 抽取 prompt 三档 | chat / work / auto | **借鉴**：已改写为三份 prompt | ✅ `scripts/prompts/l1_extraction_*.txt` |
 | L0 捕获的 4 类事件 | user/assistant message、turn start/end | **借鉴**：同样只收有限事件，且不裁剪进行中的轮次 | 🟡 `dsh-herodotus`（P5 客户端侧） |
