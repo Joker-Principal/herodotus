@@ -348,7 +348,7 @@ kb_ledger(seq PK AUTOINCREMENT, chunk_id TEXT, op TEXT, payload_json TEXT, at IN
 
 来源、许可、借鉴点与刻意差异见 [`REFERENCES.md`](REFERENCES.md)；许可声明见 [`../NOTICE`](../NOTICE)。
 
-`.reference/` 下的源码只作**语义参考**：行为逐条对账，代码以 C++ 重写。
+`.agent/reference/` 下的源码只作**语义参考**：行为逐条对账，代码以 C++ 重写。
 
 ---
 

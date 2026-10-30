@@ -80,7 +80,7 @@
 herodotus/                        ← umbrella（文档 + 集成 + 组织）
 ├─ README.md  LICENSE  NOTICE  .gitignore
 ├─ docs\  PLAN.md  ARCHITECTURE.md  PROTOCOL.md  REFERENCES.md  changelog.md
-├─ .reference\                   参考实现的实体 clone（不入库；登记见 docs/REFERENCES.md）
+├─ .agent\                 agent 工作目录（不入库）：tmp / run / reference / session
 ├─ scripts\                      构建 / 起停 / 冒烟脚本（P0 落地）
 ├─ clio\                         → submodule：C++ 引擎 + 守护进程
 ├─ dsh-herodotus\                → submodule：DSH 插件（TS/Cordis）

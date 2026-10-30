@@ -29,7 +29,7 @@ Herodotus 是一个 **umbrella 仓库**：本身只承载**文档与集成**，�
 | `dsh-herodotus/` | submodule：DSH 客户端插件 |
 | `astrbot_plugin_herodotus/` | submodule：AstrBot 客户端插件 |
 | `pylai/` | submodule：HTTP 底座，`clio` 的依赖 |
-| `.reference/` | 参考实现的实体 clone（不入库） |
+| `.agent/` | agent 工作目录（不入库）：`tmp` 临时产物 / `run` 运行日志 / `reference` 参考实现 clone / `session` 交接笔记 |
 
 本仓特有的约定（边界、索引位置、目录 README、变更记载、环境不入库）见 [`AGENTS.md`](AGENTS.md)；协作与提交的通用纪律不在此重复。
 

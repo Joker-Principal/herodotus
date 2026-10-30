@@ -10,7 +10,7 @@
 > 状态标记：**✅ 已验证（代码/实验）** · **🟡 倾向（待评估）** · **🔍 待调研 / ❓ 未定**；
 > 「偏离」「不采用」是结论，不是状态。
 >
-> 本机实体（clone 的源码、下载的数据集）放在 `.reference/`，不入库（`.gitignore` 已忽略 `/.*/`）。
+> 本机实体（clone 的源码、下载的数据集）放在 `.agent/reference/`，不入库（`.gitignore` 已忽略 `/.*/`）。
 > 本机环境与模型槽位属私有配置，**不写进本仓库**。
 
 ---
@@ -87,9 +87,9 @@
 | 数据集 | 用途 | 来源 / 许可 | 存放 |
 | --- | --- | --- | --- |
 | 黄金语料集（20 场景 / 65 语料 / 140 查询） | P3 检索基准 | 由 `scripts/build_golden.py` 从 §1 参考实现的 bench 场景生成 | 入库：`clio/tests/data/golden/` |
-| UD Chinese-GSD | 分词评测（繁体，4 997 句） | Universal Dependencies，见 `NOTICE` §四 | `.reference/datasets/` |
-| UD Chinese-GSDSimp | 分词评测（简体，4 997 句） | 同上 | `.reference/datasets/` |
-| UD Chinese-PatentChar | 分词评测（简体专利，200 句） | 同上 | `.reference/datasets/` |
+| UD Chinese-GSD | 分词评测（繁体，4 997 句） | Universal Dependencies，见 `NOTICE` §四 | `.agent/reference/datasets/` |
+| UD Chinese-GSDSimp | 分词评测（简体，4 997 句） | 同上 | `.agent/reference/datasets/` |
+| UD Chinese-PatentChar | 分词评测（简体专利，200 句） | 同上 | `.agent/reference/datasets/` |
 
 评测入口：`clio/tools/tokenize_spike --conllu <file>`。
 
